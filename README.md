@@ -1,11 +1,12 @@
 # Application Developer Technical Task
 
-## Liberaries and Technologies
+## Technologies
+***
 
-# MVIKotlin library
-# Decompose
-# Koin
-# Ktor
+* MVIKotlin library
+* Decompose
+* Koin
+* Ktor
 
 
 
