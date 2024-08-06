@@ -69,7 +69,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //MVIKotlin
 
     //Decompose for navigation
     implementation("com.arkivanov.decompose:decompose:2.2.0-alpha03")
