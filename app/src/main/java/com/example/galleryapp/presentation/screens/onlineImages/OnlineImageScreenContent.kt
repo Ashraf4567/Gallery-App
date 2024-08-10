@@ -30,6 +30,7 @@ fun OnlineImageScreenContent(
     component: OnlineScreenComponent,
     modifier: Modifier = Modifier
 ) {
+    // Collecting the state from the store
     val state = component.store.states.collectAsState(initial = OnlineImagesState())
     Scaffold(
         topBar = {

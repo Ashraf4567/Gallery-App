@@ -76,10 +76,6 @@ dependencies {
     implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.1.4-compose-experimental")
     implementation("com.arkivanov.decompose:extensions-compose-jetpack:2.1.0")
 
-    implementation("io.insert-koin:koin-android:3.5.3")
-    implementation("io.insert-koin:koin-androidx-navigation:3.2.0-beta-1")
-    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
-
     implementation("com.arkivanov.mvikotlin:mvikotlin:3.0.0")
     implementation("com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:3.0.0")
     implementation("com.arkivanov.mvikotlin:mvikotlin-main:3.0.0")

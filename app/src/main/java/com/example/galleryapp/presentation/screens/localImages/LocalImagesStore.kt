@@ -2,13 +2,13 @@ package com.example.galleryapp.presentation.screens.localImages
 
 import android.net.Uri
 import com.arkivanov.mvikotlin.core.store.Reducer
+import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
-import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineBootstrapper
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.example.galleryapp.App
-import com.example.galleryapp.domain.ImagesRepository
-import com.example.galleryapp.domain.ImagesState
+import com.example.galleryapp.data.ImagesRepository
+import com.example.galleryapp.data.model.ImagesState
 import com.example.galleryapp.utls.DataState
 import com.example.galleryapp.utls.Helper
 import kotlinx.coroutines.Dispatchers
@@ -30,26 +30,17 @@ private sealed interface LocalImagesMsg{
 
 interface LocalImagesStore: Store<Nothing, LocalImagesState, Nothing>
 
-class LocalImagesStoreFactory(
-    private val storeFactory: StoreFactory,
-    private val imagesRepository: ImagesRepository
-){
+class LocalImagesStoreFactory(private val storeFactory: StoreFactory){
+
     fun create(): LocalImagesStore = object : LocalImagesStore, Store<Nothing, LocalImagesState, Nothing> by storeFactory
         .create(
             name = "LocalImagesStore",
             initialState = LocalImagesState(),
-            bootstrapper = BootstrapperImpl(),
+            bootstrapper = SimpleBootstrapper(LocalImagesAction.LoadImages),
             executorFactory = ::ExecutorImpl,
             reducer = ReducerImpl
         ){}
 
-    private class BootstrapperImpl : CoroutineBootstrapper<LocalImagesAction>() {
-        override fun invoke() {
-            scope.launch {
-                dispatch(LocalImagesAction.LoadImages)
-            }
-        }
-    }
 
     private object ReducerImpl: Reducer<LocalImagesState , LocalImagesMsg>{
         override fun LocalImagesState.reduce(msg: LocalImagesMsg): LocalImagesState {
@@ -70,7 +61,7 @@ class LocalImagesStoreFactory(
 
         private fun handleLoadImages() {
             scope.launch(Dispatchers.IO) {
-                imagesRepository.getImages().collect{result ->
+                ImagesRepository.getImages().collect{ result ->
                     when(result){
                         is DataState.Error -> {
                             withContext(Dispatchers.Main){

@@ -1,4 +1,4 @@
-package com.example.galleryapp.domain
+package com.example.galleryapp.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

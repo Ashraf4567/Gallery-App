@@ -1,4 +1,4 @@
-package com.example.galleryapp.domain
+package com.example.galleryapp.data.model
 
 data class ImagesState<T>(
     val images: List<T> = emptyList(),
