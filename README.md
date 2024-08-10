@@ -7,6 +7,7 @@
 * Decompose
 * Koin
 * Ktor
+* coil for image loading
 
 
 
