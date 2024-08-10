@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
+// Type alias to represent the state of local images, which extends the generic ImagesState class with Uri type
 typealias LocalImagesState = ImagesState<Uri>
 
 sealed interface LocalImagesAction{
@@ -32,6 +33,7 @@ interface LocalImagesStore: Store<Nothing, LocalImagesState, Nothing>
 
 class LocalImagesStoreFactory(private val storeFactory: StoreFactory){
 
+    // Factory method to create a new instance of LocalImagesStore
     fun create(): LocalImagesStore = object : LocalImagesStore, Store<Nothing, LocalImagesState, Nothing> by storeFactory
         .create(
             name = "LocalImagesStore",
@@ -41,7 +43,7 @@ class LocalImagesStoreFactory(private val storeFactory: StoreFactory){
             reducer = ReducerImpl
         ){}
 
-
+    // Reducer implementation for handling the different messages and updating the state
     private object ReducerImpl: Reducer<LocalImagesState , LocalImagesMsg>{
         override fun LocalImagesState.reduce(msg: LocalImagesMsg): LocalImagesState {
             return when(msg){
@@ -78,7 +80,7 @@ class LocalImagesStoreFactory(private val storeFactory: StoreFactory){
 
                         }
                         is DataState.Success -> {
-                            //download images from internet then add them to cache directory and finally add them to the list
+                            // Download images from the internet, save them to cache, and update the state with the image URIs
                             val loadedImagesUris = mutableListOf<Uri>()
                             result.data?.takeLast(3)?.forEach { image ->
 
