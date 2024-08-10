@@ -5,7 +5,6 @@
 
 * MVIKotlin library
 * Decompose
-* Koin
 * Ktor
 * coil for image loading
 
